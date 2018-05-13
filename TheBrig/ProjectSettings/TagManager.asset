@@ -13,6 +13,15 @@ TagManager:
   - enemySpawn
   - Stage
   - BlueLeft
+  - BlueRight
+  - BlueFist
+  - RedLeft
+  - RedRight
+  - RedFist
+  - Red
+  - Blue
+  - BlueHealth
+  - RedHealth
   layers:
   - Default
   - TransparentFX

@@ -35,7 +35,7 @@ public class BlueController : MonoBehaviour {
         Stage = GameObject.FindGameObjectWithTag("Stage");
         m_PlayerTrans = transform;
         destinationPos = m_PlayerTrans.position;
-        m_Red = GameObject.FindGameObjectWithTag("Enemy").transform;
+        m_Red = GameObject.FindGameObjectWithTag("Red").transform;
 
 
     }
@@ -79,7 +79,7 @@ public class BlueController : MonoBehaviour {
 
     //-------------Player finite state machine
 
-    public enum PLAYER_STATE { IDLE, MOVE, ATTACKL, ATTACKR, DEFEND, INJURED, DEAD };
+    public enum PLAYER_STATE { IDLE, MOVE, ATTACKL, ATTACKR, DEFEND, INJURED, HITBODY, DEAD };
 
     [SerializeField]
     private PLAYER_STATE currentState = PLAYER_STATE.IDLE;
@@ -116,6 +116,10 @@ public class BlueController : MonoBehaviour {
 
                 case PLAYER_STATE.INJURED:
                     StartCoroutine(Player_Injured());
+                    break;
+
+                case PLAYER_STATE.HITBODY:
+                    StartCoroutine(HitBody());
                     break;
 
                 case PLAYER_STATE.DEAD:
@@ -170,8 +174,8 @@ public class BlueController : MonoBehaviour {
 
                 Vector3 targetPoint = ray.GetPoint(hitdist);
                 destinationPos = ray.GetPoint(hitdist);
-                Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-                m_PlayerTrans.rotation = Quaternion.Slerp(m_PlayerTrans.rotation, targetRotation, Time.time * 0.07f);
+                Quaternion targetRotation = Quaternion.LookRotation(targetPoint - this.transform.position);
+                m_PlayerTrans.rotation = Quaternion.Slerp(m_PlayerTrans.rotation, targetRotation, Time.time * 0.27f);
 
                 var Range = Vector3.Distance(m_PlayerTrans.position, targetPoint);
 
@@ -338,6 +342,27 @@ public class BlueController : MonoBehaviour {
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
         return results.Count > 0;
+
+    }
+
+    public void BodyHit() {
+
+        StartCoroutine(HitBody());
+        return;
+
+    }
+
+    public IEnumerator HitBody() {
+
+        while (currentState == PLAYER_STATE.HITBODY) {
+
+            m_Anim.SetBool("HitBody", true);
+            yield return new WaitForSeconds(0.75f);
+            m_Anim.SetBool("HitBody", false);
+            yield return null;
+
+        }
+        yield break;
 
     }
 }

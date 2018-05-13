@@ -313,6 +313,7 @@
     <Compile Include="Assets\_characters\_controller\_General\Prowling.cs" />
     <Compile Include="Assets\_characters\_controller\_General\RotateTo.cs" />
     <Compile Include="Assets\_characters\_controller\_General\TouchManager.cs" />
+    <Compile Include="Assets\_characters\_controller\Blue\BlueCombat.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\BlueController.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\mover.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\Old\MiniInputController.cs" />
@@ -322,9 +323,12 @@
     <Compile Include="Assets\_characters\_controller\Blue\Testing\MiniTouchInputController.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\Testing\PlayerController2.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\Testing\PlayerInputController.cs" />
+    <Compile Include="Assets\_characters\_controller\BoxerController.cs" />
     <Compile Include="Assets\_characters\_controller\Red\HitDetection.cs" />
     <Compile Include="Assets\_characters\_controller\Red\Old\AI_Enemy.cs" />
+    <Compile Include="Assets\_characters\_controller\Red\RedCombat.cs" />
     <Compile Include="Assets\_characters\_controller\Red\RedController.cs" />
+    <Compile Include="Assets\_characters\_controller\Red\RedDamage.cs" />
     <Compile Include="Assets\_scripts\_variables\BoolReference.cs" />
     <Compile Include="Assets\_scripts\_variables\BoolVariable.cs" />
     <Compile Include="Assets\_scripts\_variables\TransformRef.cs" />
