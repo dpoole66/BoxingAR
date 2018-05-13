@@ -8,34 +8,29 @@ public class RedDamage : MonoBehaviour {
     Animator m_Anim;
     public Slider health;
     public string Opponent;
+    public StateControllerRed controller;
 
-    void Start() {
-
-        m_Anim = GetComponent<Animator>();                                    
-
-    }
 
     private void OnTriggerEnter(Collider other) {
 
-        if (m_Anim && (other.gameObject.tag != Opponent))
-        return;
+        if (controller.m_Anim && (other.gameObject.tag == Opponent)) {
 
-        health.value -= 20;
-        StartCoroutine(HeadHit());
+            controller.m_Health.value -= 20;
+            controller.hit = true;
+            //controller.m_Anim.SetBool("Idle", false);
+            //controller.m_Anim.SetBool("HitHead", true);
+            //return;
 
-        if (health.value <= 0)
-        m_Anim.SetBool("Dead", true);
-   
-    }
 
-    public IEnumerator HeadHit(){
+        }
 
-        m_Anim.SetBool("HitHead", true);
-        yield return new WaitForSeconds(1.0f);
-        m_Anim.SetBool("HitHead", false);
-        m_Anim.SetBool("Idle", true);
 
-        yield break;
+        if (health.value <= 0)    {
+
+            controller.m_Anim.SetBool("Dead", true);
+            //return;
+
+        }
 
     }
 

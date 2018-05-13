@@ -307,6 +307,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_AI\_status\Stats.cs" />
+    <Compile Include="Assets\_AI\Red\_Actions\Action.cs" />
+    <Compile Include="Assets\_AI\Red\_Actions\AttackAction.cs" />
+    <Compile Include="Assets\_AI\Red\_Actions\ChaseAction.cs" />
+    <Compile Include="Assets\_AI\Red\_Actions\DamageAction.cs" />
+    <Compile Include="Assets\_AI\Red\_Actions\IdleAction.cs" />
+    <Compile Include="Assets\_AI\Red\_Decisions\ActiveStateDecision.cs" />
+    <Compile Include="Assets\_AI\Red\_Decisions\AttackDecision.cs" />
+    <Compile Include="Assets\_AI\Red\_Decisions\Decision.cs" />
+    <Compile Include="Assets\_AI\Red\_Decisions\LookDecision.cs" />
+    <Compile Include="Assets\_AI\Red\_Decisions\StopDecision.cs" />
+    <Compile Include="Assets\_AI\Red\_States\StateControllerRed.cs" />
+    <Compile Include="Assets\_AI\Red\_States\StateRed.cs" />
+    <Compile Include="Assets\_AI\Red\_Transitions\Transition.cs" />
     <Compile Include="Assets\_characters\_controller\_General\DumController.cs" />
     <Compile Include="Assets\_characters\_controller\_General\Idle.cs" />
     <Compile Include="Assets\_characters\_controller\_General\LineSight.cs" />
@@ -315,6 +329,7 @@
     <Compile Include="Assets\_characters\_controller\_General\TouchManager.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\BlueCombat.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\BlueController.cs" />
+    <Compile Include="Assets\_characters\_controller\Blue\BlueDamage.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\mover.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\Old\MiniInputController.cs" />
     <Compile Include="Assets\_characters\_controller\Blue\Old\MiniMovementController.cs" />

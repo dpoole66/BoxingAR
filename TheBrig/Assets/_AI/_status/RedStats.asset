@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dc23e0c13a2a0489260b7a113f8336, type: 3}
+  m_Name: RedStats
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  rotateSpeed: 5
+  lookRange: 2
+  lookSphereCastRadius: 0.75
+  alertRange: 4
+  advanceRange: 2.5
+  chaseRange: 3
+  stopRange: 1
+  attackRange: 1
+  attackRate: 1
+  attackForce: 15
+  attackDamage: 50
+  health: 100
+  searchDuration: 4
+  searchingTurnSpeed: 120
+  enemyAttacking: 0
+  enemyDefending: 0
