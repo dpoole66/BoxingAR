@@ -8,24 +8,27 @@ public class StopDecision : Decision {
 
     public override bool Decide(StateControllerRed controller) {
 
-        bool targetVisible = Look(controller);
-        return targetVisible;
+        bool targetNear = Stop(controller);
+        return targetNear;
 
     }
 
-    private bool Look(StateControllerRed controller) {
+    private bool Stop(StateControllerRed controller) {
 
-        RaycastHit hit;
-        Debug.DrawRay(controller.eyesRed.position, controller.eyesRed.forward.normalized * controller.redStats.lookRange, Color.red);
+        if (controller.redDirection.magnitude <= controller.redStats.stopRange) {
 
-        if (Physics.SphereCast(controller.eyesRed.position, controller.redStats.lookSphereCastRadius, controller.eyesRed.forward, out hit, controller.redStats.stopRange)
-           && hit.collider.CompareTag("Blue")) {
-            controller.m_Rigid.velocity = new Vector3(0,0,0);
+            controller.m_Anim.SetBool("Idle", true);
+            controller.m_Anim.SetBool("Move", false);
+            controller.m_Anim.SetBool("AttackL", false);
+            controller.m_Anim.SetBool("Dead", false);
+
             return true;
-        } else {
-            return false;
-        }
 
+        } else {
+
+            return false;
+
+        }
     }
 
 }

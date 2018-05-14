@@ -15,22 +15,24 @@ public class IdleAction : Action {
 
     private void Idle(StateControllerRed controller){
 
-        Quaternion targetRotation = Quaternion.LookRotation(controller.m_Blue.transform.position - controller.m_Red.transform.position);
-        controller.m_Red.rotation = Quaternion.Slerp(controller.m_Red.rotation, targetRotation, Time.time * 0.07f);
+        if (controller.m_Health.value <= 0.0f) {
 
-        Debug.Log("Red Idle");
+            return;
+
+        }
+
+        //Rotate
+        controller.redRotation = Quaternion.Slerp(controller.m_Red.transform.rotation, 
+        Quaternion.LookRotation(controller.redDirection), controller.redStats.rotateSpeed);
 
         controller.m_Anim.SetBool("Idle", true);
         controller.m_Anim.SetBool("Move", false);
+        controller.m_Anim.SetBool("HitHead", false);
         controller.m_Anim.SetBool("AttackL", false);
         controller.m_Anim.SetBool("AttackR", false);
-        controller.m_Anim.SetBool("Defend", false);
-        controller.m_Anim.SetBool("HitBody", false);
-        controller.m_Anim.SetBool("HitHead", false);
-        controller.m_Anim.SetBool("HitBody", false);
+        controller.m_Anim.SetBool("Dead", false);
 
-        //debug
-        //controller.debugUI.color = Color.blue;
+        Debug.Log("Red Idle");
 
     }
         

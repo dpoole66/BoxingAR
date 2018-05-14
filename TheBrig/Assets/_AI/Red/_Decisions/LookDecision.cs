@@ -13,7 +13,7 @@ public class LookDecision : Decision {
 
     }
 
-    private bool Look(StateControllerRed controller){
+   private bool Look(StateControllerRed controller){
 
         RaycastHit hit;
         Debug.DrawRay(controller.eyesRed.position, controller.eyesRed.forward.normalized * controller.redStats.lookRange, Color.red);
@@ -28,4 +28,4 @@ public class LookDecision : Decision {
 
     }
 
-}
+}      

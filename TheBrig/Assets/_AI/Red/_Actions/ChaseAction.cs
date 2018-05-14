@@ -12,23 +12,25 @@ public class ChaseAction : Action {
     }
     private void Chase(StateControllerRed controller) {
 
-        Debug.Log("Approach");
+        if(controller.m_Health.value <= 0.0f){
 
+                return;
+
+        }
+
+        Debug.Log("Red Chase");
         controller.m_Anim.SetBool("Idle", false);
         controller.m_Anim.SetBool("Move", true);
-        controller.m_Anim.SetBool("AttackL", false);
-        controller.m_Anim.SetBool("AttackR", false);
-        controller.m_Anim.SetBool("Defend", false);
-        controller.m_Anim.SetBool("HitBody", false);
-        controller.m_Anim.SetBool("HitHead", false);
-        controller.m_Anim.SetBool("HitBody", false);
+        controller.m_Anim.SetBool("AttackL", false);   
 
         //Rotate
-        Vector3 targetPoint = controller.chaseTarget.transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(targetPoint - controller.m_Red.transform.position);
-        controller.m_Red.rotation = Quaternion.Slerp(controller.m_Red.rotation, targetRotation, Time.time * controller.redStats.rotateSpeed);
-        //Move     
-        controller.m_Red.position = Vector3.MoveTowards(controller.m_Red.position, targetPoint, controller.redStats.moveSpeed * Time.deltaTime);
+        controller.m_Red.transform.rotation = Quaternion.Slerp(controller.m_Red.transform.rotation,
+        Quaternion.LookRotation(controller.redDirection), controller.redStats.rotateSpeed);
+
+        //Move       
+        controller.m_Red.transform.position = Vector3.Lerp(controller.m_Red.transform.position, 
+        controller.m_Blue.transform.position, controller.redStats.moveSpeed * Time.deltaTime);
+
 
     }
 

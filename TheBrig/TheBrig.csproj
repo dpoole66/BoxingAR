@@ -312,9 +312,12 @@
     <Compile Include="Assets\_AI\Red\_Actions\AttackAction.cs" />
     <Compile Include="Assets\_AI\Red\_Actions\ChaseAction.cs" />
     <Compile Include="Assets\_AI\Red\_Actions\DamageAction.cs" />
+    <Compile Include="Assets\_AI\Red\_Actions\DeadAction.cs" />
     <Compile Include="Assets\_AI\Red\_Actions\IdleAction.cs" />
     <Compile Include="Assets\_AI\Red\_Decisions\ActiveStateDecision.cs" />
     <Compile Include="Assets\_AI\Red\_Decisions\AttackDecision.cs" />
+    <Compile Include="Assets\_AI\Red\_Decisions\ChaseDecision.cs" />
+    <Compile Include="Assets\_AI\Red\_Decisions\DeadDecision.cs" />
     <Compile Include="Assets\_AI\Red\_Decisions\Decision.cs" />
     <Compile Include="Assets\_AI\Red\_Decisions\LookDecision.cs" />
     <Compile Include="Assets\_AI\Red\_Decisions\StopDecision.cs" />
@@ -350,6 +353,7 @@
     <Compile Include="Assets\_scripts\_variables\TransformVariable.cs" />
     <Compile Include="Assets\_scripts\ARController.cs" />
     <Compile Include="Assets\_scripts\MettleARController.cs" />
+    <Compile Include="Assets\_scripts\SpotLightController.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\ComputerVision\Scripts\ComputerVisionController.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\ComputerVision\Scripts\EdgeDetector.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\ComputerVision\Scripts\TextureReader.cs" />

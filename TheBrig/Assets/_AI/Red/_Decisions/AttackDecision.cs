@@ -8,24 +8,22 @@ public class AttackDecision : Decision {
 
     public override bool Decide(StateControllerRed controller) {
 
-        bool targetVisible = Look(controller);
+        bool targetVisible = Attack(controller);
         return targetVisible;
 
     }
 
-    private bool Look(StateControllerRed controller) {
+    private bool Attack(StateControllerRed controller) {
 
-        RaycastHit hit;
-        Debug.DrawRay(controller.eyesRed.position, controller.eyesRed.forward.normalized * controller.redStats.lookRange, Color.red);
-
-        if (Physics.SphereCast(controller.eyesRed.position, controller.redStats.lookSphereCastRadius, controller.eyesRed.forward, out hit, controller.redStats.attackRange)
-           && hit.collider.CompareTag("Blue") ){
-           // controller.chaseTarget = hit.transform;
+        if (controller.redDirection.magnitude <= controller.redStats.attackRange) {
+    
             return true;
-        } else {
-            return false;
-        }
 
+        } else {
+
+            return false;
+
+        }
     }
 
 }

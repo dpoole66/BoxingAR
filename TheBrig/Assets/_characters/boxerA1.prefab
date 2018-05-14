@@ -55,7 +55,7 @@ GameObject:
   m_Layer: 5
   m_Name: b_AttackR
   m_TagString: ButtonAttack
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -266,7 +266,7 @@ GameObject:
   m_Layer: 5
   m_Name: b_AttackL
   m_TagString: ButtonAttack
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -677,6 +677,7 @@ GameObject:
   - component: {fileID: 54916015385397112}
   - component: {fileID: 136707252090512068}
   - component: {fileID: 114946200457831480}
+  - component: {fileID: 114490944515436164}
   m_Layer: 0
   m_Name: boxerA1
   m_TagString: Blue
@@ -1039,7 +1040,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1894439013744740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4345475540173598}
@@ -1703,6 +1704,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114490944515436164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1894439013744740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3493be1173e7ead4890867d518bd541b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 114485742381825226}
+  Opponent: RedFist
 --- !u!114 &114523551800556702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1878,8 +1892,8 @@ MonoBehaviour:
   Stage: {fileID: 0}
   enGuardRange: 0.2
   attackRange: 0.1
-  b_AttackL: {fileID: 0}
-  b_AttackR: {fileID: 0}
+  b_AttackL: {fileID: 114325733924880248}
+  b_AttackR: {fileID: 114609627421272936}
   b_Defend: {fileID: 114113056027312932}
   currentState: 0
 --- !u!135 &135106494833980860

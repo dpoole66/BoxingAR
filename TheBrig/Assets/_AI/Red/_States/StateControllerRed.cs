@@ -17,7 +17,11 @@ public class StateControllerRed : MonoBehaviour {
 
     [HideInInspector] public Transform m_Red;
     [HideInInspector] public Transform m_Blue;
-    [HideInInspector] public Rigidbody m_Rigid;
+
+    [HideInInspector] public Vector3 redDirection;
+    [HideInInspector] public Quaternion redRotation;
+
+    //[HideInInspector] public Rigidbody m_Rigid;
     [HideInInspector] public Animator m_Anim;
     [HideInInspector] public RedDamage m_Damage;
     [HideInInspector] public Slider m_Health;
@@ -30,13 +34,17 @@ public class StateControllerRed : MonoBehaviour {
         m_Health = GetComponentInChildren<Slider>();
         m_Red = GetComponent<Transform>();
         m_Anim = GetComponent<Animator>();
-        m_Rigid = GetComponent<Rigidbody>();
 
     }
 
     void Update() {
 
         currentState.UpdateState(this);
+
+        //Get Blue position and rotation and determine Red direction and rotation              
+        redDirection = m_Blue.position - m_Red.position;
+        redDirection.y = 0.0f;
+
 
     }
 

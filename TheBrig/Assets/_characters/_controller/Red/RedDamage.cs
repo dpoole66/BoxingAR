@@ -15,12 +15,8 @@ public class RedDamage : MonoBehaviour {
 
         if (controller.m_Anim && (other.gameObject.tag == Opponent)) {
 
-            controller.m_Health.value -= 20;
+            controller.m_Health.value -= controller.redStats.attackDamage;
             controller.hit = true;
-            //controller.m_Anim.SetBool("Idle", false);
-            //controller.m_Anim.SetBool("HitHead", true);
-            //return;
-
 
         }
 
