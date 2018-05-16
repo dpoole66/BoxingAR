@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class BlueDamage : MonoBehaviour {
 
+    public GameObject m_Red;
     Animator m_Anim;
-    public Slider health;
+    public Slider health;           
+    public Text m_Score;
+    private int score = 0;
     public string Opponent;
 
     private void Awake() {
@@ -20,7 +23,9 @@ public class BlueDamage : MonoBehaviour {
 
         if (m_Anim && (other.gameObject.tag == Opponent)) {
 
-            health.value -= 20;      
+            health.value -= 10;
+            score = score + 10;
+            m_Score.text =  score.ToString();
             m_Anim.SetBool("Idle", false);
             m_Anim.SetBool("HitHead", true);
             //return;

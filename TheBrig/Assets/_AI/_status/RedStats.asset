@@ -11,18 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc23e0c13a2a0489260b7a113f8336, type: 3}
   m_Name: RedStats
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 0.5
   rotateSpeed: 1
   moveRecovRate: 1
-  velocity: {x: 1.7326372, y: 0.00000040409344, z: -1.3218725}
-  lookRange: 4
-  lookSphereCastRadius: 0.75
-  chaseRange: 4
-  stopRange: 2
-  attackRange: 0.75
-  attackRate: 1
-  attackForce: 50
-  attackDamage: 50
+  score: 0
+  lookRange: 2.11
+  lookSphereCastRadius: 0.68
+  chaseRange: 1
+  attackDamage: 10
   health: 100
   enemyAttacking: 0
   enemyDefending: 0

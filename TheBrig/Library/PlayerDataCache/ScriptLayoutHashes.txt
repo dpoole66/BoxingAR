@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/dpool/Documents/darkpoole/Brig/TheBrig/_builds/BoxConv.apk
+C:/Users/dpool/Documents/darkpoole/Brig/TheBrig/_builds/Box.apk
 SceneListBegin?
 Assets/_scenes/BoxerConv.unity
 SceneListEnd?
@@ -19,16 +19,17 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:GoogleARCore.Anchor
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DeadDecision
 62f4e803247774277263cc3434718a62 Assembly-CSharp.dll:UnityEngine.AI.NavMeshModifier
 d0856b1f3e258171a95707eb912f92b3 Assembly-CSharp.dll:.PlayerController2
 7ba1e84ad3d2d8813486668e75f842ce Assembly-CSharp-firstpass.dll:UnityStandardAssets.Effects.ParticleSystemMultiplier
 a71e89494a00540356e3247bc0ed0342 Assembly-CSharp.dll:UnityEngine.AI.NavMeshLink
-8ab0f66c311612742b3bc77ee49a6412 Assembly-CSharp.dll:.Stats
+c787597924b874129c6efa10cea2837c Assembly-CSharp.dll:.Stats
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LookDecision
 0ea7e3a1b65cd933d7a007e6774c4eaa Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.ThirdPerson.AICharacterControl
 7c4009185d1e3bcf3491adeea097f83e Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.FirstPerson.FirstPersonController
 430c1729d7a445aa5df470ced463fca9 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Effects.ExplosionPhysicsForce
-2781b0b198aba8f38333b3e67c16532a Assembly-CSharp.dll:.BlueDamage
+64ccd455ce9d1ea9f972c737943762dd Assembly-CSharp.dll:.BlueDamage
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.EventSystemChecker
 3b945a83fa61133bbb7c61d4d7012fd9 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Effects.Hose
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
@@ -130,6 +131,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 78a2a366a0a3b585e1178d2dd9d006ab Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.WaypointProgressTracker
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DeadAction
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AttackAction
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:GoogleARCore.EnvironmentalLight
 322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
@@ -146,9 +148,9 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 8bb8d2e63730f43bf5eeaa11a50e0cc8 Assembly-CSharp.dll:GoogleARCore.HelloAR.HelloARController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.DragRigidbody
-8d649a05ce59cf83130870af632583f8 Assembly-CSharp.dll:.StateControllerRed
+0072c23de1df041b3136d33128720045 Assembly-CSharp.dll:.StateControllerRed
 78ebae5ed9b3edeb216da437b99754a4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.Joystick
-7b6fed4b4c58fd939096bd48899f0040 Assembly-CSharp.dll:.RedDamage
+fd86a4dca974a58a9458c6f3d89018d0 Assembly-CSharp.dll:.RedDamage
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorStageBehaviour
@@ -184,7 +186,7 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 6464eccbabc9e89fe3ddd41575f55611 Assembly-CSharp.dll:.MiniMovementController
 02fbb484a135e0bcd63aacf509942ecf Assembly-CSharp.dll:.MiniTouchInputController
-2adb21803e99099d57c903ed318c5531 Assembly-CSharp.dll:.RedController
+4a58cd5b542bcc2a09301a94f55ace71 Assembly-CSharp.dll:.RedController
 149e538468c9a609cf26b23682c996c7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.PlatformSpecificContent
 d78da10fc6fe2ebb0bfa7bfae15012c5 Assembly-CSharp.dll:UnityEngine.AI.NavMeshModifierVolume
 37bf4d6a6d424731cb4a9b998783e5c6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.ThirdPerson.ThirdPersonCharacter
@@ -260,6 +262,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ActiveStateDecision
 2dbfd4f7836c7f6a79e17be5f4bf7969 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.WaypointCircuit
+e6ce390d192c3ed0881f7f8223ba6eb0 Assembly-CSharp.dll:.SpotLightController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:GoogleARCore.InstantPreviewTrackedPoseDriver
 60ade6aa5619663d6e9ca7c5523d4a4a Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController
 8eb2443c71a17d7df9be0eaf3f3a993a Assembly-CSharp.dll:GoogleARCore.ARCoreSession
@@ -302,6 +305,7 @@ e360dd9e3fa577f4ffdf9ed93f33079a Assembly-CSharp.dll:GoogleARCore.MettleARContro
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Prowling
 33150445ba45bb38ab65d5a24a5975b0 Assembly-CSharp.dll:.DumController
 f4b175ffc1eeca85d2783436b4c764a7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Effects.Explosive
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ChaseDecision
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ChaseAction
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FPSCounter
 bc79872c81f3cda9be1ec427f70f92aa Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
@@ -374,7 +378,3 @@ a924c90a95cf65003f662aa5e30abb6b Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.mover
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ChaseDecision
-e6ce390d192c3ed0881f7f8223ba6eb0 Assembly-CSharp.dll:.SpotLightController
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DeadDecision
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DeadAction

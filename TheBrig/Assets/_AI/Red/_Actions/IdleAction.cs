@@ -27,10 +27,10 @@ public class IdleAction : Action {
 
         controller.m_Anim.SetBool("Idle", true);
         controller.m_Anim.SetBool("Move", false);
-        controller.m_Anim.SetBool("HitHead", false);
-        controller.m_Anim.SetBool("AttackL", false);
-        controller.m_Anim.SetBool("AttackR", false);
-        controller.m_Anim.SetBool("Dead", false);
+        //controller.m_Anim.SetBool("HitHead", false);
+        //controller.m_Anim.SetBool("AttackL", false);
+        //controller.m_Anim.SetBool("AttackR", false);
+        //controller.m_Anim.SetBool("Dead", false);
 
         Debug.Log("Red Idle");
 

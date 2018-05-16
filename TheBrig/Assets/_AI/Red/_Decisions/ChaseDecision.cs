@@ -15,8 +15,8 @@ public class ChaseDecision : Decision {
 
     private bool Chase(StateControllerRed controller){
 
-        if(controller.redDirection.magnitude <= controller.redStats.chaseRange) {
-  
+        if(controller.chase == true) {
+           
             return true;
          
         }     else {

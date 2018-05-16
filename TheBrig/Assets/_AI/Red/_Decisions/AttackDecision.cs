@@ -15,7 +15,7 @@ public class AttackDecision : Decision {
 
     private bool Attack(StateControllerRed controller) {
 
-        if (controller.redDirection.magnitude <= controller.redStats.attackRange) {
+        if (controller.redDirection.magnitude <= 0.8f) {
     
             return true;
 

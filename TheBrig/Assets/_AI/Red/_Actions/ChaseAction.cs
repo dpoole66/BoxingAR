@@ -18,18 +18,23 @@ public class ChaseAction : Action {
 
         }
 
-        Debug.Log("Red Chase");
-        controller.m_Anim.SetBool("Idle", false);
-        controller.m_Anim.SetBool("Move", true);
-        controller.m_Anim.SetBool("AttackL", false);   
+        if(controller.chase == true){
 
-        //Rotate
-        controller.m_Red.transform.rotation = Quaternion.Slerp(controller.m_Red.transform.rotation,
-        Quaternion.LookRotation(controller.redDirection), controller.redStats.rotateSpeed);
+            Debug.Log("Red Chase");
+            controller.m_Anim.SetBool("Idle", false);
+            controller.m_Anim.SetBool("Move", true);
+            //controller.m_Anim.SetBool("AttackL", false);   
 
-        //Move       
-        controller.m_Red.transform.position = Vector3.Lerp(controller.m_Red.transform.position, 
-        controller.m_Blue.transform.position, controller.redStats.moveSpeed * Time.deltaTime);
+            //Rotate
+            controller.m_Red.transform.rotation = Quaternion.Slerp(controller.m_Red.transform.rotation,
+            Quaternion.LookRotation(controller.redDirection), controller.redStats.rotateSpeed);
+
+            //Move       
+            controller.m_Red.transform.position = Vector3.Lerp(controller.m_Red.transform.position,
+            controller.chaseTarget.position, controller.redStats.moveSpeed * Time.deltaTime);
+
+        }
+        
 
 
     }

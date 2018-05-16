@@ -22,6 +22,8 @@ TagManager:
   - Blue
   - BlueHealth
   - RedHealth
+  - RedScore
+  - BlueScore
   layers:
   - Default
   - TransparentFX

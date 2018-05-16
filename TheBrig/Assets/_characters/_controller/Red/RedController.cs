@@ -10,7 +10,7 @@ public class RedController : MonoBehaviour {
 
     [HideInInspector] public Animator m_Anim;
     [HideInInspector] public Rigidbody m_Rigid;
-    public Transform m_Blue;
+    public GameObject m_Blue;
     private bool move = false;
     private Transform m_Red;
     private Vector3 destinationPos;
@@ -19,7 +19,9 @@ public class RedController : MonoBehaviour {
     public float moveSpeed = 0.60f;
     public float rotSpeed = 0.5f;
     private float m_Speed;
-    public Slider health;
+    public Slider m_Health;
+    public Text m_Score;
+    private int score = 0;
     public string Opponent;
 
     //Combat
@@ -27,6 +29,12 @@ public class RedController : MonoBehaviour {
     bool hit = false;
     bool dead = false;
     float speed;
+    [Range(0.5f, 0.8f)]
+    [SerializeField]
+    private float caution;
+    [Range(0.25f, 0.5f)]
+    [SerializeField]
+    private float danger;
 
     private void Awake() {
 
@@ -34,14 +42,13 @@ public class RedController : MonoBehaviour {
         m_Anim = GetComponent<Animator>();
         m_Rigid = GetComponent<Rigidbody>();
         m_Red = GetComponent<Transform>();
-        m_Blue = GameObject.FindGameObjectWithTag("Blue").transform;
-
+        //m_Score = m_Blue.GetComponent<Text>();
 
     }
 
     void Start() {
 
-        health.value = 100;
+        m_Health.value = 100;
         CurrentState = PLAYER_STATE.IDLE;
 
     }
@@ -53,23 +60,26 @@ public class RedController : MonoBehaviour {
             return;
 
 
-        health.value -= 10;
+        m_Health.value -= 10;
+        score = score + 10;
+        m_Score.text = score.ToString();
 
-        if(health.value > 0){
+        if(m_Health.value > 0){
 
             hit = true;
             dead = false;
             return;
 
-        }
-            
-
-
-        if (health.value <= 0){
+        }   else if (m_Health.value <= 0){
 
             hit = false;
             dead = true;
             return;
+
+        }   else {
+
+            hit = false;
+            dead = false;
 
         }
 
@@ -87,22 +97,39 @@ public class RedController : MonoBehaviour {
 
 
         //Rangefinder
-        targetRange = Vector3.Distance(m_Red.position, m_Blue.position);
+        targetRange = Vector3.Distance(m_Red.position, m_Blue.transform.position);
 
 
         if (targetRange >= 0.75f) {
 
             CurrentState = PLAYER_STATE.MOVE;
 
-        }
-        
-        if(targetRange <= 0.75f){
+        } else {
 
             CurrentState = PLAYER_STATE.IDLE;
 
         }
+            
 
-        if(hit == true){
+        if (hit == false && targetRange <= 0.75f && m_Health.value >= 80.0f) {
+
+            CurrentState = PLAYER_STATE.ATTACK;
+
+        }
+
+        if (hit == true && targetRange <= 0.75f && m_Health.value <= 90.0) {
+
+            hit = false;
+            CurrentState = PLAYER_STATE.STUN;
+
+
+        }  else if (hit == true && targetRange <= 0.75f && m_Health.value <= danger) {
+
+            hit = false;
+            CurrentState = PLAYER_STATE.STUN;
+
+
+        } else  if (hit == true){
 
             hit = false;
             CurrentState = PLAYER_STATE.HITHEAD;
@@ -124,7 +151,7 @@ public class RedController : MonoBehaviour {
 
     //-------------Player finite state machine
 
-    public enum PLAYER_STATE { IDLE, MOVE, ATTACK, DEFEND, INJURED, HITBODY, HITHEAD, DEAD };
+    public enum PLAYER_STATE { IDLE, MOVE, ATTACK, ENGUARDE, DEFEND, STUN, HITBODY, HITHEAD, DEAD };
 
     [SerializeField]
     private PLAYER_STATE currentState = PLAYER_STATE.IDLE;
@@ -151,12 +178,16 @@ public class RedController : MonoBehaviour {
                     StartCoroutine(Player_Attack());
                     break;
 
+                case PLAYER_STATE.ENGUARDE:
+                    StartCoroutine(Player_Enguarde());
+                    break;
+
                 case PLAYER_STATE.DEFEND:
                     StartCoroutine(Player_Defend());
                     break;
 
-                case PLAYER_STATE.INJURED:
-                    StartCoroutine(Player_Injured());
+                case PLAYER_STATE.STUN:
+                    StartCoroutine(Player_Stun());
                     break;
 
                 case PLAYER_STATE.HITBODY:
@@ -190,9 +221,12 @@ public class RedController : MonoBehaviour {
             m_Anim.SetBool("Move", false);
             m_Anim.SetBool("AttackL", false);
             m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("EnGuarde", false);
+            m_Anim.SetBool("Backup", false);
             m_Anim.SetBool("Defend", false);
             m_Anim.SetBool("HitBody", false);
             m_Anim.SetBool("HitHead", false);
+            m_Anim.SetBool("Stun", false);
             m_Anim.SetBool("HitBody", false);
 
             yield return null;
@@ -211,9 +245,12 @@ public class RedController : MonoBehaviour {
             m_Anim.SetBool("Move", true);
             m_Anim.SetBool("AttackL", false);
             m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("EnGuarde", false);
+            m_Anim.SetBool("Backup", false);
             m_Anim.SetBool("Defend", false);
             m_Anim.SetBool("HitBody", false);
             m_Anim.SetBool("HitHead", false);
+            m_Anim.SetBool("Stun", false);
             m_Anim.SetBool("Dead", false);
 
             //Rotate
@@ -222,7 +259,7 @@ public class RedController : MonoBehaviour {
             m_Red.rotation = Quaternion.Slerp(m_Red.rotation, targetRotation, Time.time * 1.0f);
             //Move
             m_Speed = moveSpeed;
-            m_Red.position = Vector3.MoveTowards(m_Red.position, m_Blue.position, m_Speed * Time.deltaTime);
+            m_Red.position = Vector3.MoveTowards(m_Red.position, m_Blue.transform.position, m_Speed * Time.deltaTime);
     
  
             yield return null;
@@ -238,20 +275,57 @@ public class RedController : MonoBehaviour {
     public IEnumerator Player_Attack() {
 
         while (currentState == PLAYER_STATE.ATTACK) {
-    
+
             m_Anim.SetBool("Idle", false);
             m_Anim.SetBool("Move", false);
-            m_Anim.SetBool("AttackL", false);
-            m_Anim.SetBool("AttackR", true);
+            m_Anim.SetBool("AttackL", true);
+            m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("EnGuarde", false);
+            m_Anim.SetBool("Backup", false);
             m_Anim.SetBool("Defend", false);
             m_Anim.SetBool("HitBody", false);
             m_Anim.SetBool("HitHead", false);
+            m_Anim.SetBool("Stun", false);
+            m_Anim.SetBool("Dead", false);
+
+            yield return null;
+            if(hit ==true && m_Health.value <= 0.8f){
+
+                CurrentState = PLAYER_STATE.STUN;
+
+            } else {
+
+                CurrentState = PLAYER_STATE.IDLE;
+
+            }
+            
+
+         }
+
+        yield break;
+
+    }
+
+    public IEnumerator Player_Enguarde() {
+
+        while (currentState == PLAYER_STATE.ENGUARDE) {
+
+            m_Anim.SetBool("Idle", false);
+            m_Anim.SetBool("Move", false);
+            m_Anim.SetBool("AttackL", false);
+            m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("EnGuarde", true);
+            m_Anim.SetBool("Backup", false);
+            m_Anim.SetBool("Defend", false);
+            m_Anim.SetBool("HitBody", false);
+            m_Anim.SetBool("HitHead", false);
+            m_Anim.SetBool("Stun", false);
             m_Anim.SetBool("Dead", false);
 
             yield return null;
             CurrentState = PLAYER_STATE.IDLE;
 
-         }
+        }
 
         yield break;
 
@@ -265,12 +339,15 @@ public class RedController : MonoBehaviour {
                 m_Anim.SetBool("Move", false);
                 m_Anim.SetBool("AttackL", false);
                 m_Anim.SetBool("AttackR", false);
-                m_Anim.SetBool("Defend", true);
+                m_Anim.SetBool("EnGuarde", false);
+                m_Anim.SetBool("Backup", true);
+                m_Anim.SetBool("Defend", false);
                 m_Anim.SetBool("HitBody", false);
                 m_Anim.SetBool("HitHead", false);
+                m_Anim.SetBool("Stun", false);
                 m_Anim.SetBool("Dead", false);
 
-            yield return new WaitForSeconds(2);
+            yield return null;
             CurrentState = PLAYER_STATE.IDLE;    
          }
 
@@ -279,15 +356,16 @@ public class RedController : MonoBehaviour {
     }
 
 
-    public IEnumerator Player_Injured() {
+    public IEnumerator Player_Stun() {
 
-        while (currentState == PLAYER_STATE.INJURED) {
+        while (currentState == PLAYER_STATE.STUN) {
 
             Debug.Log("Hit Body");
             m_Anim.SetBool("Idle", false);
             m_Anim.SetBool("Move", false);
             m_Anim.SetBool("AttackL", false);
             m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("EnGuarde", false);
             m_Anim.SetBool("Defend", false);
             m_Anim.SetBool("HitBody", false);
             m_Anim.SetBool("HitHead", false);
@@ -312,13 +390,15 @@ public class RedController : MonoBehaviour {
             m_Anim.SetBool("Move", false);
             m_Anim.SetBool("AttackL", false);
             m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("EnGuarde", false);
             m_Anim.SetBool("Defend", false);
             m_Anim.SetBool("HitBody", false);
             m_Anim.SetBool("HitHead", false);
+            m_Anim.SetBool("Stun", false);
             m_Anim.SetBool("Dead", true);
 
             yield return new WaitForSeconds(2);
-            health.value = 100;
+            m_Health.value = 100;
             CurrentState = PLAYER_STATE.IDLE;
 
             yield return null;
@@ -336,9 +416,11 @@ public class RedController : MonoBehaviour {
         m_Anim.SetBool("Move", false);
         m_Anim.SetBool("AttackL", false);
         m_Anim.SetBool("AttackR", false);
+        m_Anim.SetBool("EnGuarde", false);
         m_Anim.SetBool("Defend", false);
         m_Anim.SetBool("HitBody", true);
         m_Anim.SetBool("HitHead", false);
+        m_Anim.SetBool("Stun", false);
         m_Anim.SetBool("Dead", false);
 
         yield return null;                
@@ -356,14 +438,17 @@ public class RedController : MonoBehaviour {
         m_Anim.SetBool("Move", false);
         m_Anim.SetBool("AttackL", false);
         m_Anim.SetBool("AttackR", false);
+        m_Anim.SetBool("EnGuarde", false);
         m_Anim.SetBool("Defend", false);
         m_Anim.SetBool("HitBody", false);
         m_Anim.SetBool("HitHead", true);
+        m_Anim.SetBool("Stun", false);
         m_Anim.SetBool("Dead", false);
 
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
 
-        m_Anim.SetBool("HitHead", false);
+        //m_Anim.SetBool("HitHead", false);
+        yield return null;
         CurrentState = PLAYER_STATE.IDLE;
 
         yield break;
