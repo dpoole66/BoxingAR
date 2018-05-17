@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -135,7 +136,7 @@ public class BlueController : MonoBehaviour {
     public IEnumerator Player_Idle() {
 
         while (currentState == PLAYER_STATE.IDLE) {
-  
+
             Quaternion targetRotation = Quaternion.LookRotation(m_Red.transform.position - transform.position);
             m_PlayerTrans.rotation = Quaternion.Slerp(m_PlayerTrans.rotation, targetRotation, Time.time * 0.07f);
 
@@ -224,7 +225,7 @@ public class BlueController : MonoBehaviour {
                 m_Anim.SetBool("AttackL", true);
                 m_Anim.SetBool("AttackR", false);
                 m_Anim.SetBool("Defend", false);
-      
+
             }
 
             yield return null;
@@ -248,7 +249,7 @@ public class BlueController : MonoBehaviour {
                 m_Anim.SetBool("AttackL", false);
                 m_Anim.SetBool("AttackR", true);
                 m_Anim.SetBool("Defend", false);
-   
+
             }
 
             yield return null;

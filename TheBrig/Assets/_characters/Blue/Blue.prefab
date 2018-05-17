@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Anim: {fileID: 0}
   m_Rigid: {fileID: 0}
-  m_Red: {fileID: 224630160934744294}
+  m_Red: {fileID: 0}
   setMovementRange: 0.2
   moveSpeed: 1
   rotSpeed: 0.5
@@ -1890,7 +1890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3493be1173e7ead4890867d518bd541b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Red: {fileID: 0}
+  m_Red: {fileID: 1718921216618704, guid: 5c1dc289c84974545bad7b39a1603db6, type: 2}
   health: {fileID: 114904081662580510}
   m_Score: {fileID: 0}
   Opponent: RedFist
@@ -2142,7 +2142,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1776759667839230}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224911855168509326}
@@ -2200,7 +2200,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1557861732175350}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224799619253789180}
@@ -2315,7 +2315,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955031958491552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224799619253789180}

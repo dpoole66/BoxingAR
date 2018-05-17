@@ -347,6 +347,9 @@
     <Compile Include="Assets\_characters\_controller\Red\RedCombat.cs" />
     <Compile Include="Assets\_characters\_controller\Red\RedController.cs" />
     <Compile Include="Assets\_characters\_controller\Red\RedDamage.cs" />
+    <Compile Include="Assets\_characters\_controller\Red\RedDamage2.cs" />
+    <Compile Include="Assets\_characters\_controller\Red\RedHealth.cs" />
+    <Compile Include="Assets\_characters\_controller\Red\SimpleRedControl.cs" />
     <Compile Include="Assets\_scripts\_variables\BoolReference.cs" />
     <Compile Include="Assets\_scripts\_variables\BoolVariable.cs" />
     <Compile Include="Assets\_scripts\_variables\TransformRef.cs" />

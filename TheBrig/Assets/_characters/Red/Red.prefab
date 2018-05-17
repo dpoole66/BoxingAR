@@ -1266,12 +1266,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Anim: {fileID: 0}
   m_Rigid: {fileID: 0}
-  m_Blue: {fileID: 0}
+  m_Blue: {fileID: 1211882413471314, guid: 83cf1d20727b0b74ab600e79c9b66477, type: 2}
   moveSpeed: 0.6
   rotSpeed: 0.5
   m_Health: {fileID: 114895286232177578}
   m_Score: {fileID: 0}
   Opponent: BlueFist
+  hit: 0
+  caution: 0
+  danger: 0
   currentState: 0
 --- !u!114 &114530995749567394
 MonoBehaviour:
