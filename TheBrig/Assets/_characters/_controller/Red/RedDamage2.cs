@@ -23,7 +23,9 @@ public class RedDamage2 : MonoBehaviour {
         if (other.gameObject.tag == Opponent) {
 
             hitCount =  hitCount + 1;
+            m_RedController.HitCount = hitCount;
             m_Health.HealthAmount -= 10.0f;
+            m_RedController.Health = m_Health.HealthAmount;
             m_RedController.hit = true;
             m_ScoreUI.text = hitCount.ToString();
             m_HealthUI.value = m_Health.HealthAmount;

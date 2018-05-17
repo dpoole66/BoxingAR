@@ -9,13 +9,13 @@ public class SimpleRedControl : MonoBehaviour {
     public RedHealth m_Health;
     public Transform m_BlueTrans;
 
-    //Combat
-    public bool hit;
-    //public int HitCount;
+    //Combat    
     float targetRange;
 
     //Health
-    public float m_RedHealth;
+    public float Health;
+    public bool hit;
+    public int HitCount;
 
 
     public enum RED_STATE {HIT, IDLE, CHASE, ATTACK, RETREAT, DIE}
@@ -103,16 +103,11 @@ public class SimpleRedControl : MonoBehaviour {
             m_RedTrans.rotation = Quaternion.Slerp(m_RedTrans.rotation, targetRotation, Time.time * 1.0f);
 
             //If hit again, retreat
-            if (targetRange <= 0.7f) {
+            if (HitCount >= 1 & Health >= 90.0) {
          
                 CurrentState = RED_STATE.ATTACK;
 
-            }    else if(targetRange >= 0.7){
-
-                CurrentState = RED_STATE.IDLE;
-
-            }
-
+            }   
 
             yield return null;
 
@@ -198,10 +193,17 @@ public class SimpleRedControl : MonoBehaviour {
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
             m_RedTrans.rotation = Quaternion.Slerp(m_RedTrans.rotation, targetRotation, Time.time * 1.0f);
 
+            if(HitCount >=2 && Health <= 80.0f){
 
+                hit = false;
+                CurrentState = RED_STATE.RETREAT;
+
+            } 
+    
             yield return null;
 
          }
+
 
     }
 
@@ -217,8 +219,11 @@ public class SimpleRedControl : MonoBehaviour {
             m_RedAnim.SetBool("Attack", false);
             m_RedAnim.SetBool("Chase", false);
 
+            yield return new WaitForSeconds(0.7f); 
 
-            yield return null;
+            CurrentState = RED_STATE.IDLE;
+
+            yield break;
 
          }
 
@@ -255,8 +260,9 @@ public class SimpleRedControl : MonoBehaviour {
 
         }
 
-        m_RedHealth = m_Health.HealthAmount;
-        Debug.Log(m_RedHealth);
+        Debug.Log(Health);
+
+        Debug.Log(HitCount);
 
     }
 }
