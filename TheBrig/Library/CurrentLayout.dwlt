@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 7}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 663}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_MinSize: {x: 277, y: 192}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 196
+  controlID: 179
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -219,10 +219,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 713, y: 592}
-  m_MaxSize: {x: 18008, y: 18042}
+  m_MinSize: {x: 713, y: 613}
+  m_MaxSize: {x: 18008, y: 18063}
   vertical: 0
-  controlID: 136
+  controlID: 133
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,10 +244,10 @@ MonoBehaviour:
     y: 0
     width: 485
     height: 947
-  m_MinSize: {x: 232, y: 592}
-  m_MaxSize: {x: 10002, y: 18042}
+  m_MinSize: {x: 232, y: 613}
+  m_MaxSize: {x: 10002, y: 18063}
   vertical: 1
-  controlID: 54
+  controlID: 100
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -316,8 +316,8 @@ MonoBehaviour:
     y: 675
     width: 485
     height: 272
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 23}
   m_Panes:
   - {fileID: 23}
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 442}
   m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
-  controlID: 137
+  controlID: 134
 --- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -493,7 +493,7 @@ MonoBehaviour:
       width: 2796.279
       height: 2880
     m_MinimalGUI: 1
-  m_defaultScale: 0.23888889
+  m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 0
   m_LastWindowPixelSize: {x: 668, y: 705}
@@ -527,9 +527,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: f0fbffff00000000
+    m_SelectedIDs: ecfaffff
+    m_LastClickedID: -1300
+    m_ExpandedIDs: e6fbffffeefbfffff0fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -590,20 +590,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/_characters/_animations
+    - Assets/_characters/_controller/Blue
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/_characters/_animations
+  - Assets/_characters/_controller/Blue
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\dpool\Documents\darkpoole\Brig\TheBrig
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 192.88889}
-    m_SelectedIDs: c4310000
-    m_LastClickedID: 12740
-    m_ExpandedIDs: 00000000d62c0000882d0000922d0000162e0000962e0000c42f0000ce2f0000d42f000056300000b4300000c63000007a310000c8320000ca320000e63200003c33000042340000ce3400002235000000ca9a3bffffff7f
+    m_SelectedIDs: c8320000
+    m_LastClickedID: 13000
+    m_ExpandedIDs: 00000000d42c0000862d0000902d0000142e0000942e0000c22f0000cc2f0000d22f000054300000b2300000c430000078310000c6320000c8320000e43200003a33000040340000cc3400002035000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -631,7 +631,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d62c0000882d0000922d0000162e0000962e0000c42f0000ce2f0000d42f000056300000b4300000c63000007a310000c8320000ca320000e63200003c33000042340000ce34000022350000
+    m_ExpandedIDs: 00000000d42c0000862d0000902d0000142e0000942e0000c22f0000cc2f0000d22f000054300000b2300000c430000078310000c6320000c8320000e43200003a33000040340000cc34000020350000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -683,7 +683,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 443}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_DirectoriesAreaWidth: 261
 --- !u!114 &22
@@ -783,14 +783,14 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
-    - e00: 0.7835655
+    - e00: 0.38957056
       e01: 0
       e02: 0
-      e03: 210.6683
+      e03: 165.38727
       e10: 0
-      e11: 0.7835655
+      e11: 0.38957056
       e12: 0
-      e13: -85.12175
+      e13: -3.6993866
       e20: 0
       e21: 0
       e22: 1

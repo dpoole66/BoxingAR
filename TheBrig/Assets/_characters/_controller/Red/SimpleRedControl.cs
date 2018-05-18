@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimpleRedControl : MonoBehaviour {
 
     private Transform m_RedTrans;
-    private Animator m_RedAnim;
-    public RedHealth m_Health;
+    private Animator m_RedAnim; 
     public Transform m_BlueTrans;
 
     //Combat    
@@ -15,12 +15,14 @@ public class SimpleRedControl : MonoBehaviour {
     //Health
     public float Health;
     public bool hit;
+    public bool dead;
     public int HitCount;
+    public Slider m_HealthUI;
+    public Text m_ScoreUI;
 
 
     public enum RED_STATE {HIT, IDLE, CHASE, ATTACK, RETREAT, DIE}
-    [SerializeField]
-    private RED_STATE currentState = RED_STATE.IDLE;
+    [SerializeField] private RED_STATE currentState = RED_STATE.IDLE;
 
     //Get and set CurrentState using priveat var currentState and switch case
 
@@ -247,8 +249,34 @@ public class SimpleRedControl : MonoBehaviour {
         m_RedTrans = GetComponent<Transform>();
 
 	}
-	
-	void Update () {
+
+    private void Start() {
+
+        StartCoroutine(ReviveHealth());
+
+    }
+
+    IEnumerator ReviveHealth() {
+
+        while (true) {
+
+            if (Health <= 90.0f) {
+
+                Health += 10.0f;
+                Debug.Log("Revive");
+                yield return new WaitForSeconds(1);
+
+            } else {
+
+                yield return null;
+
+            }
+
+        }
+
+    }
+
+    void Update () {
 
         //Rangefinder
         targetRange = Vector3.Distance(m_RedTrans.position, m_BlueTrans.position);

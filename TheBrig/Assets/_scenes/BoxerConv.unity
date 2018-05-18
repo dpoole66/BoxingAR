@@ -175,6 +175,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &162915785 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114503837430492952, guid: 26327d82ef6824448a0bced6db5c212f,
+    type: 2}
+  m_PrefabInternal: {fileID: 653544269}
+  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &173945599
 Prefab:
   m_ObjectHideFlags: 0
@@ -214,16 +220,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114356315655134516, guid: 83cf1d20727b0b74ab600e79c9b66477,
-        type: 2}
-      propertyPath: Stage
-      value: 
-      objectReference: {fileID: 1331246895}
     - target: {fileID: 114968906578791808, guid: 83cf1d20727b0b74ab600e79c9b66477,
         type: 2}
       propertyPath: m_Score
       value: 
       objectReference: {fileID: 1878845468}
+    - target: {fileID: 114356315655134516, guid: 83cf1d20727b0b74ab600e79c9b66477,
+        type: 2}
+      propertyPath: m_Red
+      value: 
+      objectReference: {fileID: 1229538200}
+    - target: {fileID: 114356315655134516, guid: 83cf1d20727b0b74ab600e79c9b66477,
+        type: 2}
+      propertyPath: Stage
+      value: 
+      objectReference: {fileID: 1331246895}
     - target: {fileID: 224050732212799438, guid: 83cf1d20727b0b74ab600e79c9b66477,
         type: 2}
       propertyPath: m_AnchorMax.x
@@ -317,7 +328,23 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114705813051994868, guid: 26327d82ef6824448a0bced6db5c212f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114220572323272492, guid: 26327d82ef6824448a0bced6db5c212f,
+        type: 2}
+      propertyPath: m_HealthUI
+      value: 
+      objectReference: {fileID: 162915785}
+    - target: {fileID: 114220572323272492, guid: 26327d82ef6824448a0bced6db5c212f,
+        type: 2}
+      propertyPath: m_ScoreUI
+      value: 
+      objectReference: {fileID: 178404593}
+    m_RemovedComponents:
+    - {fileID: 114705813051994868, guid: 26327d82ef6824448a0bced6db5c212f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 26327d82ef6824448a0bced6db5c212f, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &713428660 stripped
@@ -556,6 +583,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1229538200 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4217648878224790, guid: 26327d82ef6824448a0bced6db5c212f,
+    type: 2}
+  m_PrefabInternal: {fileID: 653544269}
 --- !u!1 &1264464281
 GameObject:
   m_ObjectHideFlags: 0

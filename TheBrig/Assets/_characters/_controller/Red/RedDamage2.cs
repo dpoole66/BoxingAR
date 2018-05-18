@@ -6,32 +6,41 @@ using UnityEngine.UI;
 public class RedDamage2 : MonoBehaviour {
 
     public string Opponent;
-    private int hitCount;         
-    public SimpleRedControl m_RedController;
-    private RedHealth m_Health;
-    public Slider m_HealthUI;
-    public Text m_ScoreUI;
+    private int hitCount;
+    public SimpleRedControl m_RedController;             
+    [SerializeField] private float healthAmount = 100f;
 
-    private void Awake() {
+    
 
-        m_Health = GetComponent<RedHealth>();
 
+
+    public float HealthAmount {
+
+        get { return healthAmount; }
+        set {
+
+            healthAmount = value;
+            if (HealthAmount <= 0.0f) {
+
+                m_RedController.dead = true;
+
+            }     
+        }   
     }
 
     private void OnTriggerEnter(Collider other) {
 
         if (other.gameObject.tag == Opponent) {
 
-            hitCount =  hitCount + 1;
-            m_RedController.HitCount = hitCount;
-            m_Health.HealthAmount -= 10.0f;
-            m_RedController.Health = m_Health.HealthAmount;
+            hitCount = hitCount + 1;
+            m_RedController.HitCount = hitCount + 1;
+            m_RedController.Health = HealthAmount -= 10.0f;
+            //m_RedController.Health = HealthAmount;
             m_RedController.hit = true;
-            m_ScoreUI.text = hitCount.ToString();
-            m_HealthUI.value = m_Health.HealthAmount;
+            m_RedController.m_ScoreUI.text = m_RedController.HitCount.ToString();
+            m_RedController.m_HealthUI.value = HealthAmount;
 
-        }
-
+        }   
     }
 
     public int HitCount {
@@ -39,8 +48,7 @@ public class RedDamage2 : MonoBehaviour {
         get { return hitCount; }
         set { hitCount = HitCount; }
 
-
     }
 
-
+   
 }

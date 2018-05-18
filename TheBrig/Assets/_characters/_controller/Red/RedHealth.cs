@@ -20,6 +20,32 @@ public class RedHealth : MonoBehaviour {
 
         }
 
-    }	
+    }
+
+    private void Start() {
+
+        StartCoroutine(ReviveHealth());
+
+    }
+
+    IEnumerator ReviveHealth(){
+
+        while(true){
+
+            if (healthAmount < 100.0f){
+
+                healthAmount += 10.0f;
+                Debug.Log("Revive");
+                yield return new WaitForSeconds(1);
+
+            }   else {
+
+                yield return null;
+
+            }
+
+        }
+
+    }
 
 }
