@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114946200457831480}
+      - m_Target: {fileID: 0}
         m_MethodName: B_Defend_1
         m_Mode: 1
         m_Arguments:
@@ -1665,7 +1665,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3493be1173e7ead4890867d518bd541b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Red: {fileID: 0}
   health: {fileID: 114485742381825226}
+  m_Score: {fileID: 0}
   Opponent: RedFist
 --- !u!114 &114523551800556702
 MonoBehaviour:
@@ -1830,20 +1832,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1894439013744740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650103c773b9fe54183f0b8d9b7b17f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b9d2323773f8874b93708a9783f31c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Anim: {fileID: 0}
   m_Rigid: {fileID: 0}
-  m_Red: {fileID: 0}
-  setMovementRange: 0.2
+  m_Enemy: {fileID: 0}
+  setMovementRange: 0.001
   moveSpeed: 1
   rotSpeed: 0.5
   Stage: {fileID: 0}
   enGuardRange: 0.2
   attackRange: 0.1
-  b_AttackL: {fileID: 114325733924880248}
-  b_AttackR: {fileID: 114609627421272936}
+  b_Attack: {fileID: 114325733924880248}
   b_Defend: {fileID: 114113056027312932}
   currentState: 0
 --- !u!135 &135106494833980860

@@ -13,6 +13,10 @@ public class MiniInputController : MonoBehaviour {
     public Transform m_Enemy;
     private bool move = false;
     private Transform m_PlayerTrans;
+    //added controller vars
+    private float m_Distance;
+    private Vector3 m_Direction;
+    //--
     private Vector3 destinationPos;
     private float destinationDis;
     private bool inRange = false;
@@ -21,8 +25,8 @@ public class MiniInputController : MonoBehaviour {
     private float m_Speed;
     //Combat
     public float enGuardRange = 0.2f;
-    public float attackRange = 0.1f;
-    private Button b_Attack, b_Defend;
+    public float AttackLRange = 0.1f;
+    private Button b_AttackL, b_Defend;
 
 
     void Start() {
@@ -34,11 +38,11 @@ public class MiniInputController : MonoBehaviour {
         destinationPos = m_PlayerTrans.position;
         m_Speed = Speed;
         m_Enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
-        b_Attack = GameObject.FindGameObjectWithTag("ButtonAttack").GetComponent<Button>();
+        b_AttackL = GameObject.FindGameObjectWithTag("ButtonAttackL").GetComponent<Button>();
         b_Defend = GameObject.FindGameObjectWithTag("ButtonDefend").GetComponent<Button>();
 
         //combat buttons
-        b_Attack.onClick.AddListener(() => B_Attack_1());
+        b_AttackL.onClick.AddListener(() => B_AttackL_1());
         b_Defend.onClick.AddListener(() => B_Defend_1());
 
     }
@@ -53,66 +57,88 @@ public class MiniInputController : MonoBehaviour {
         //Combat
         var combatRange = Vector3.Distance(m_PlayerTrans.position, m_Enemy.position);
 
-        //Movement
-        //speed in reference to distance
-        if (m_Speed <= 0.1f) {
+        //Rotation, direction and distance
+        m_PlayerTrans.transform.rotation = Quaternion.Slerp(m_PlayerTrans.transform.rotation, Quaternion.LookRotation(m_Direction), 0.5f);
+        m_Distance = Vector3.Distance(m_PlayerTrans.position, m_Enemy.position);
+        m_Direction = m_Enemy.position - m_PlayerTrans.transform.position;
+        m_Direction.y = 0.0f;              
 
-            m_Anim.ResetTrigger("Move");
-            m_Anim.SetTrigger("Idle");
 
-        } else if (m_Speed >= 0.2f) {
+        ////Movement
+        ////speed in reference to distance
+        //if (m_Speed <= 0.1f) {
 
-            m_Anim.ResetTrigger("Idle");
-            m_Anim.SetTrigger("Move");
+        //    m_Anim.SetBool("AttackL", false);
+        //    m_Anim.SetBool("Defend", false);
+        //    m_Anim.SetBool("Move", false);
+        //    m_Anim.SetBool("Idle", true);
 
-        }
+        //} else if (m_Speed >= 0.2f) {
+
+        //    m_Anim.SetBool("AttackL", false);
+        //    m_Anim.SetBool("Defend", false);
+        //    m_Anim.SetBool("Move", true);
+        //    m_Anim.SetBool("Idle", false);
+
+        //}
 
         //touch/mouse input to move player
         if (Input.GetMouseButton(0) && !inRange && !IsPointerOverUIObject()) {
-           
-             //Touch awareness
-            if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began) {    
-                return;                   
+
+            //Touch awareness
+            if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began) {
+                return;
             }
 
-                m_Speed = 3.0f;
-                Plane playerPlane = new Plane(Vector3.up, m_PlayerTrans.position);
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                float hitdist = 0.0f;
+            //m_Speed = 3.0f;
+            Plane playerPlane = new Plane(Vector3.up, m_PlayerTrans.position);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            float hitdist = 0.0f;
 
-   
-                if (playerPlane.Raycast(ray, out hitdist)) {
 
-                    Vector3 targetPoint = ray.GetPoint(hitdist);
-                    destinationPos = ray.GetPoint(hitdist);
-                    Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-                    m_PlayerTrans.rotation = targetRotation;
+            if (playerPlane.Raycast(ray, out hitdist)) {
 
-                    var Range = Vector3.Distance(m_PlayerTrans.position, targetPoint);
+                Vector3 targetPoint = ray.GetPoint(hitdist);
+                destinationPos = ray.GetPoint(hitdist);
+                Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+                m_PlayerTrans.rotation = targetRotation;
 
-                    m_PlayerTrans.position = Vector3.MoveTowards(m_PlayerTrans.position, destinationPos, Speed * Time.deltaTime);
-                    Debug.Log(Speed);
+                var Range = Vector3.Distance(m_PlayerTrans.position, targetPoint);
 
-                    if (Range <= setMovementRange) {     //This is to stop the char from continuing to try to hit the target while in input touch down
+                m_PlayerTrans.position = Vector3.MoveTowards(m_PlayerTrans.position, destinationPos, Speed * Time.deltaTime);
+                m_Anim.SetBool("AttackL", false);
+                m_Anim.SetBool("Defend", false);
+                m_Anim.SetBool("Move", true);
+                m_Anim.SetBool("Idle", false);
 
-                        inRange = true;
-                        m_Speed = 0.0f;
+                if (Range <= setMovementRange) {     //This is to stop the char from continuing to try to hit the target while in input touch down
 
-                    }
+                    inRange = true;
+                    m_Anim.SetBool("AttackL", false);
+                    m_Anim.SetBool("Defend", false);
+                    m_Anim.SetBool("Move", false);
+                    m_Anim.SetBool("Idle", true);
 
                 }
 
+            }
+
         } else {
 
-            m_Speed = 0.0f;
+            m_Anim.SetBool("AttackL", false);
+            m_Anim.SetBool("Defend", false);
+            m_Anim.SetBool("Move", false);
+            m_Anim.SetBool("Idle", true);
 
         }
 
         if (Input.GetMouseButtonUp(0)) {
 
-            inRange = false;
-            m_Speed = 0.0f;
+            m_Anim.SetBool("AttackL", false);
+            m_Anim.SetBool("Defend", false);
+            m_Anim.SetBool("Move", false);
+            m_Anim.SetBool("Idle", true);
 
         }
 
@@ -127,18 +153,21 @@ public class MiniInputController : MonoBehaviour {
     }
 
     //Combat
-    public void B_Attack_1() {     //UI Attack button
+    public void B_AttackL_1() {     //UI AttackL button
 
-        StartCoroutine(Attack_1());
+        StartCoroutine(AttackL_1());
         return;
 
     }
-    public IEnumerator Attack_1() {    //Attack coro
+    public IEnumerator AttackL_1() {    //AttackL coro
 
-        Vector3 relativePos = m_Enemy.position - m_PlayerTrans.position;
-        Quaternion lookAtTarget = Quaternion.LookRotation(relativePos);
-        m_PlayerTrans.rotation = lookAtTarget;
-        m_Anim.SetBool("Attack", true);
+        //Vector3 relativePos = m_Enemy.position - m_PlayerTrans.position;
+        //Quaternion lookAtTarget = Quaternion.LookRotation(relativePos);
+        //m_PlayerTrans.rotation = lookAtTarget;
+        m_PlayerTrans.transform.rotation = Quaternion.Slerp(m_PlayerTrans.transform.rotation, Quaternion.LookRotation(m_Direction), 0.5f);
+        m_Anim.SetBool("AttackL", true);
+        m_Anim.SetBool("Defend", false);
+        m_Anim.SetBool("Move", false);
         m_Anim.SetBool("Idle", false);
         yield break;
 
@@ -154,14 +183,14 @@ public class MiniInputController : MonoBehaviour {
 
     public IEnumerator Defend_1() {     //Defend coro
 
-            Vector3 relativePos = m_Enemy.position - m_PlayerTrans.position;
-            Quaternion lookAtTarget = Quaternion.LookRotation(relativePos);
-            m_PlayerTrans.rotation = lookAtTarget;
-            m_Anim.SetBool("Attack", false);
-            m_Anim.SetBool("Defend", true);
-            m_Anim.SetBool("Move", false);
-            m_Anim.SetBool("Idle", false);
-            yield break;
+        Vector3 relativePos = m_Enemy.position - m_PlayerTrans.position;
+        Quaternion lookAtTarget = Quaternion.LookRotation(relativePos);
+        m_PlayerTrans.rotation = lookAtTarget;
+        m_Anim.SetBool("AttackL", false);
+        m_Anim.SetBool("Defend", true);
+        m_Anim.SetBool("Move", false);
+        m_Anim.SetBool("Idle", false);
+        yield break;
 
     }
 

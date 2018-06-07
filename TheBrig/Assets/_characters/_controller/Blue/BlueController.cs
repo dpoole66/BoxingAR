@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,10 +16,11 @@ public class BlueController : MonoBehaviour {
     private Vector3 destinationPos;
     private float destinationDis;
     private bool inRange = false;
-    public float setMovementRange = 0.001f;
-    public float moveSpeed = 1.0f;
+    private Vector3 m_Direction;
+    public float setMovementRange = 0.01f;
+    public float moveSpeed = 0.10f;
     public float rotSpeed = 0.5f;
-    private float m_Speed;
+    private float m_Speed = 0.1f;
     public GameObject Stage;
 
     //Combat
@@ -30,7 +30,6 @@ public class BlueController : MonoBehaviour {
 
     private void Awake() {
 
-        Physics.gravity = new Vector3(0, -200f, 0);
         m_Anim = GetComponent<Animator>();
         m_Rigid = GetComponent<Rigidbody>();
         Stage = GameObject.FindGameObjectWithTag("Stage");
@@ -137,8 +136,10 @@ public class BlueController : MonoBehaviour {
 
         while (currentState == PLAYER_STATE.IDLE) {
 
-            Quaternion targetRotation = Quaternion.LookRotation(m_Red.transform.position - transform.position);
-            m_PlayerTrans.rotation = Quaternion.Slerp(m_PlayerTrans.rotation, targetRotation, Time.time * 0.07f);
+            //Rotation
+            m_PlayerTrans.transform.rotation = Quaternion.Slerp(m_PlayerTrans.transform.rotation, Quaternion.LookRotation(m_Direction), rotSpeed);
+            m_Direction = m_Red.position - m_PlayerTrans.transform.position;
+            m_Direction.y = 0.0f;
 
             m_Anim.SetBool("Idle", true);
             m_Anim.SetBool("Move", false);
@@ -165,7 +166,7 @@ public class BlueController : MonoBehaviour {
 
             m_Speed = moveSpeed;
 
-            Plane playerPlane = new Plane(Vector3.up, Stage.transform.position.y + 0.4f);
+            Plane playerPlane = new Plane(Vector3.up, Stage.transform.position.y + 0.04f);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo = new RaycastHit();
             float hitdist = 0.0f;
@@ -175,20 +176,27 @@ public class BlueController : MonoBehaviour {
 
                 Vector3 targetPoint = ray.GetPoint(hitdist);
                 destinationPos = ray.GetPoint(hitdist);
-                Quaternion targetRotation = Quaternion.LookRotation(targetPoint - this.transform.position);
-                m_PlayerTrans.rotation = Quaternion.Slerp(m_PlayerTrans.rotation, targetRotation, Time.time * 0.27f);
+
+                //Original Rotation causeing spinnig
+                //Quaternion targetRotation = Quaternion.LookRotation(targetPoint - this.transform.position);
+                //m_PlayerTrans.rotation = Quaternion.Slerp(m_PlayerTrans.rotation, targetRotation, Time.time * 0.27f);
+
+                //Rotation
+                m_PlayerTrans.transform.rotation = Quaternion.Slerp(m_PlayerTrans.transform.rotation, Quaternion.LookRotation(m_Direction), rotSpeed);
+                m_Direction = destinationPos - m_PlayerTrans.transform.position;
+                m_Direction.y = 0.0f;
 
                 var Range = Vector3.Distance(m_PlayerTrans.position, targetPoint);
 
 
-                m_PlayerTrans.position = Vector3.MoveTowards(m_PlayerTrans.position, destinationPos, m_Speed * Time.deltaTime);
+                m_PlayerTrans.position = Vector3.MoveTowards(m_PlayerTrans.position, destinationPos, moveSpeed * Time.deltaTime);
 
 
                 if (Range <= setMovementRange) {     //This is to stop the char from continuing to try to hit the target while in input touch down
 
                     inRange = false;
-                    m_Speed = 0.0f;
-                    m_PlayerTrans.position = this.transform.position;
+                    //moveSpeed = 0.0f;
+                    //m_PlayerTrans.position = this.transform.position;
                     CurrentState = PLAYER_STATE.IDLE;
 
                 }
@@ -196,7 +204,7 @@ public class BlueController : MonoBehaviour {
                 if (Input.GetMouseButtonUp(0)) {
 
                     inRange = false;
-                    m_Speed = 0.0f;
+                    moveSpeed = 0.0f;
                     m_PlayerTrans.position = this.transform.position;
                     CurrentState = PLAYER_STATE.IDLE;
 
@@ -217,6 +225,11 @@ public class BlueController : MonoBehaviour {
 
         while (currentState == PLAYER_STATE.ATTACKL) {
 
+            //Rotation
+            m_PlayerTrans.transform.rotation = Quaternion.Slerp(m_PlayerTrans.transform.rotation, Quaternion.LookRotation(m_Direction), rotSpeed);
+            m_Direction = m_Red.position - m_PlayerTrans.transform.position;
+            m_Direction.y = 0.0f;
+
 
             if (IsPointerOverUIObject()) {
 
@@ -229,7 +242,9 @@ public class BlueController : MonoBehaviour {
             }
 
             yield return null;
+
             CurrentState = PLAYER_STATE.IDLE;
+
 
         }
 
@@ -240,6 +255,11 @@ public class BlueController : MonoBehaviour {
     public IEnumerator Player_AttackR() {
 
         while (currentState == PLAYER_STATE.ATTACKR) {
+
+            //Rotation
+            m_PlayerTrans.transform.rotation = Quaternion.Slerp(m_PlayerTrans.transform.rotation, Quaternion.LookRotation(m_Direction), rotSpeed);
+            m_Direction = m_Red.position - m_PlayerTrans.transform.position;
+            m_Direction.y = 0.0f;
 
 
             if (IsPointerOverUIObject()) {
@@ -269,8 +289,14 @@ public class BlueController : MonoBehaviour {
 
             if (IsPointerOverUIObject()) {
 
-                Quaternion lookAtTarget = Quaternion.LookRotation(relativePos);
-                this.transform.rotation = lookAtTarget;
+                //Quaternion lookAtTarget = Quaternion.LookRotation(relativePos);
+                //this.transform.rotation = lookAtTarget;
+
+                //Rotation
+                m_PlayerTrans.transform.rotation = Quaternion.Slerp(m_PlayerTrans.transform.rotation, Quaternion.LookRotation(m_Direction), rotSpeed);
+                m_Direction = m_Red.position - m_PlayerTrans.transform.position;
+                m_Direction.y = 0.0f;
+
                 m_Anim.SetBool("Idle", false);
                 m_Anim.SetBool("Move", false);
                 m_Anim.SetBool("AttackL", false);
@@ -308,6 +334,9 @@ public class BlueController : MonoBehaviour {
 
     }
     //---------------------------------------------------------
+    //---------------------------------------------------------
+
+   //Public methods for button calls
 
     //Attack
     public void B_Attack_1L() {

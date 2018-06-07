@@ -8,7 +8,7 @@ public class RedCombat : MonoBehaviour {
     Animator m_Anim;
     public Slider health;
     private GameObject m_Blue;
-    private BlueController m_Controller;
+    private SimpleBlueController m_Controller;
 
     private void OnTriggerEnter(Collider other) {
 
@@ -27,7 +27,7 @@ public class RedCombat : MonoBehaviour {
 
         m_Anim = GetComponent<Animator>();
         m_Blue = GameObject.FindGameObjectWithTag("Blue");
-        m_Controller = m_Blue.GetComponent<BlueController>();
+        m_Controller = m_Blue.GetComponent<SimpleBlueController>();
 
     }
 

@@ -34,12 +34,12 @@
         //
         //Game  
         //
-        public Transform m_PlayerSpawn, m_EnemySpawn;
+        public Transform m_BlueSpawn, m_RedSpawn;
         //Stage
         public GameObject StagePrefab;
         [HideInInspector] public GameObject StageInstance;
         //Players
-        public GameObject PlayerPrefab, EnemyPrefab;
+        public GameObject BluePrefab, RedPrefab;
         //private GameObject mettlePlayerInstance;
 
         public BoolReference allPlayersSpawned;
@@ -146,57 +146,59 @@
 
             while (currentstate == GAME_STATE.STARTING) {
 
-                StartingUI.SetActive(false);
+                StartingUI.SetActive(true);
                 //CombatUI.SetActive(false);
-                SearchingForPlaneUI.SetActive(true);
+                SearchingForPlaneUI.SetActive(false);
 
-                Touch touch;
+                Touch touch = Input.GetTouch(0);
 
-                while (!placeModel && Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began) {
-                    yield return null;
-                }
 
-                // Raycast against the location the player touched to search for planes.
-                TrackableHit hit;
-                TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
+                if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began) {
+                    yield break;
+
+                } else {
+
+                    // Raycast against the location the player touched to search for planes.
+                    TrackableHit hit;
+                    TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
                     TrackableHitFlags.FeaturePointWithSurfaceNormal;
 
-                if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit) && !placeModel) {
+                    if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit) && !placeModel) {
 
-                    var StageInstance = Instantiate(StagePrefab, hit.Pose.position, hit.Pose.rotation);
+                        var StageInstance = Instantiate(StagePrefab, hit.Pose.position, hit.Pose.rotation);
 
-                    var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+                        var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
-                    if ((hit.Flags & TrackableHitFlags.PlaneWithinPolygon) != TrackableHitFlags.None) {
+                        if ((hit.Flags & TrackableHitFlags.PlaneWithinPolygon) != TrackableHitFlags.None) {
 
-                        Vector3 cameraPositionSameY = FirstPersonCamera.transform.position;
-                        cameraPositionSameY.y = hit.Pose.position.y;
+                            Vector3 cameraPositionSameY = FirstPersonCamera.transform.position;
+                            cameraPositionSameY.y = hit.Pose.position.y;
 
-                        StageInstance.transform.LookAt(cameraPositionSameY, StageInstance.transform.up);
-                        placeModel = true;
+                            StageInstance.transform.LookAt(cameraPositionSameY, StageInstance.transform.up);
+                            placeModel = true;
 
+                        }
+
+                        StageInstance.transform.parent = anchor.transform;
+
+                        StartingUI.SetActive(true);
+
+                        yield return new WaitForSeconds(3);
+
+                        StartCoroutine(SpawnPlayers());
+
+                        if (allPlayersSpawned.Value == true) {
+
+                            StartingUI.SetActive(false);
+                            CurrentState = GAME_STATE.PLAYING;
+
+                            yield break;
+
+                        }
                     }
-
-                    StageInstance.transform.parent = anchor.transform;
-
-                    StartingUI.SetActive(true);
-
-                    yield return new WaitForSeconds(3);
-                    
-                    StartCoroutine(SpawnPlayers());
-
-                    if(allPlayersSpawned.Value == true)  {
-   
-                        StartingUI.SetActive(false);              
-                        CurrentState = GAME_STATE.PLAYING;
-
-                        yield break;
-
-                    }
-
                     yield return null;
-                
-                }
+                } 
+              
             }
         }
 
@@ -238,15 +240,15 @@
         // Supporting Coroutines
         IEnumerator SpawnPlayers() {
 
-                m_PlayerSpawn = GameObject.FindGameObjectWithTag("playerSpawn").transform;
-                m_EnemySpawn = GameObject.FindGameObjectWithTag("enemySpawn").transform;
+                m_BlueSpawn = GameObject.FindGameObjectWithTag("playerSpawn").transform;
+                m_RedSpawn = GameObject.FindGameObjectWithTag("enemySpawn").transform;
 
                 Vector3 cameraPositionSameY = FirstPersonCamera.transform.position;
 
-            //var playerInstance = Instantiate(PlayerPrefab, m_PlayerSpawn.transform.position, Quaternion.LookRotation(this.transform.position - m_EnemySpawn.transform.position));        
-            var playerInstance = Instantiate(PlayerPrefab, m_PlayerSpawn.transform.position, Quaternion.identity);
+            //var playerInstance = Instantiate(BluePrefab, m_BlueSpawn.transform.position, Quaternion.LookRotation(this.transform.position - m_RedSpawn.transform.position));        
+            var playerInstance = Instantiate(BluePrefab, m_BlueSpawn.transform.position, Quaternion.identity);
 
-            var enemyInstance = Instantiate(EnemyPrefab, m_EnemySpawn.transform.position, Quaternion.identity);
+            var enemyInstance = Instantiate(RedPrefab, m_RedSpawn.transform.position, Quaternion.identity);
   
                 allPlayersSpawned.Value = true;
 

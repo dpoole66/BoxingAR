@@ -6,49 +6,26 @@ using UnityEngine.UI;
 public class RedDamage2 : MonoBehaviour {
 
     public string Opponent;
-    private int hitCount;
-    public SimpleRedControl m_RedController;             
-    [SerializeField] private float healthAmount = 100f;
+    public float DamageAmt = 10.0f;    
+    public RedHitController m_RedController;             
 
-    
-
-
-
-    public float HealthAmount {
-
-        get { return healthAmount; }
-        set {
-
-            healthAmount = value;
-            if (HealthAmount <= 0.0f) {
-
-                m_RedController.dead = true;
-
-            }     
-        }   
-    }
 
     private void OnTriggerEnter(Collider other) {
 
         if (other.gameObject.tag == Opponent) {
 
-            hitCount = hitCount + 1;
-            m_RedController.HitCount = hitCount + 1;
-            m_RedController.Health = HealthAmount -= 10.0f;
-            //m_RedController.Health = HealthAmount;
+            m_RedController.HitCount = m_RedController.HitCount + 1;            
+            m_RedController.Health = m_RedController.Health -= DamageAmt;        
             m_RedController.hit = true;
             m_RedController.m_ScoreUI.text = m_RedController.HitCount.ToString();
-            m_RedController.m_HealthUI.value = HealthAmount;
+            m_RedController.m_HealthUI.value = m_RedController.Health;
 
         }   
     }
 
-    public int HitCount {
+    private void OnTriggerExit(Collider other) {
 
-        get { return hitCount; }
-        set { hitCount = HitCount; }
+        m_RedController.hit = false;
 
     }
-
-   
 }

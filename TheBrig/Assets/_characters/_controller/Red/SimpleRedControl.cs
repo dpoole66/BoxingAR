@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; 
+using GoogleARCore;
 
 public class SimpleRedControl : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class SimpleRedControl : MonoBehaviour {
 
     //Health
     public float Health;
+    public float MaxHealth = 100.0f;
+    public float RegenAmt = 10.0f;
     public bool hit;
     public bool dead;
     public int HitCount;
@@ -250,32 +253,6 @@ public class SimpleRedControl : MonoBehaviour {
 
 	}
 
-    private void Start() {
-
-        StartCoroutine(ReviveHealth());
-
-    }
-
-    IEnumerator ReviveHealth() {
-
-        while (true) {
-
-            if (Health <= 90.0f) {
-
-                Health += 10.0f;
-                Debug.Log("Revive");
-                yield return new WaitForSeconds(1);
-
-            } else {
-
-                yield return null;
-
-            }
-
-        }
-
-    }
-
     void Update () {
 
         //Rangefinder
@@ -288,9 +265,17 @@ public class SimpleRedControl : MonoBehaviour {
 
         }
 
-        Debug.Log(Health);
+        
+        if (Health <= MaxHealth) {
 
-        Debug.Log(HitCount);
+            Health += RegenAmt * Time.deltaTime;
+            m_HealthUI.value = Health;
+            Debug.Log(Health);
 
+        } else if (Health > MaxHealth) {
+
+            Health = MaxHealth;
+
+        }
     }
 }
