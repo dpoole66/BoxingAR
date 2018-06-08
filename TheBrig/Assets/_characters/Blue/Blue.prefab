@@ -146,11 +146,8 @@ GameObject:
   - component: {fileID: 95929241192453268}
   - component: {fileID: 54999902728768722}
   - component: {fileID: 136826553593264296}
-  - component: {fileID: 114798251302160808}
   - component: {fileID: 114300263128427982}
-  - component: {fileID: 195665027391181422}
-  - component: {fileID: 114448546740426328}
-  - component: {fileID: 114571812421051138}
+  - component: {fileID: 114369995004154782}
   m_Layer: 0
   m_Name: Blue
   m_TagString: Blue
@@ -268,8 +265,8 @@ GameObject:
   - component: {fileID: 114262244603257342}
   - component: {fileID: 114638701318768142}
   m_Layer: 5
-  m_Name: b_AttackR
-  m_TagString: ButtonAttack
+  m_Name: b_AttackR_Blue
+  m_TagString: ButtonAttackR
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -552,7 +549,7 @@ GameObject:
   - component: {fileID: 114332557536467620}
   - component: {fileID: 114884644570080468}
   m_Layer: 5
-  m_Name: b_Defend
+  m_Name: b_Defend_Blue
   m_TagString: ButtonDefend
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -647,8 +644,8 @@ GameObject:
   - component: {fileID: 114011958090915402}
   - component: {fileID: 114633178726196022}
   m_Layer: 5
-  m_Name: b_AttackL
-  m_TagString: ButtonAttack
+  m_Name: b_AttackL_Blue
+  m_TagString: ButtonAttackL
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1493,7 +1490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Opponent: RedFist
   DamageAmt: 10
-  m_BlueController: {fileID: 114798251302160808}
+  m_BlueController: {fileID: 0}
 --- !u!114 &114332557536467620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1521,6 +1518,26 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114369995004154782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211882413471314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e43f1fec2ca01428412bc46e48e4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Anim: {fileID: 0}
+  m_Rigid: {fileID: 0}
+  m_Red: {fileID: 0}
+  moveSpeed: 0.2
+  rotateSpeed: 0.7
+  b_AttackL: {fileID: 114633178726196022}
+  b_AttackR: {fileID: 114638701318768142}
+  b_Defend: {fileID: 114884644570080468}
+  currentState: 0
 --- !u!114 &114379591657634364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1570,48 +1587,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Attack
---- !u!114 &114448546740426328
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1211882413471314}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68c8afcfb12a8cf4092bb2979d2f3334, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Anim: {fileID: 0}
-  m_Rigid: {fileID: 0}
-  m_Enemy: {fileID: 0}
-  setMovementRange: 0.001
-  Speed: 0.1
-  enGuardRange: 0.2
-  AttackLRange: 0.1
---- !u!114 &114571812421051138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1211882413471314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac33533800675424ca49ab18a41586ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Anim: {fileID: 0}
-  m_Rigid: {fileID: 0}
-  m_Red: {fileID: 0}
-  setMovementRange: 0.01
-  moveSpeed: 1
-  rotSpeed: 0.5
-  Stage: {fileID: 0}
-  enGuardRange: 0.2
-  attackRange: 0.1
-  b_AttackL: {fileID: 114633178726196022}
-  b_AttackR: {fileID: 114638701318768142}
-  b_Defend: {fileID: 114884644570080468}
-  currentState: 0
 --- !u!114 &114633178726196022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1652,7 +1627,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114798251302160808}
+      - m_Target: {fileID: 114369995004154782}
         m_MethodName: B_Attack_1L
         m_Mode: 1
         m_Arguments:
@@ -1705,8 +1680,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114798251302160808}
-        m_MethodName: B_Defend_1
+      - m_Target: {fileID: 114369995004154782}
+        m_MethodName: B_Attack_1R
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1813,39 +1788,6 @@ MonoBehaviour:
   m_Text: 'Hits
 
 '
---- !u!114 &114798251302160808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1211882413471314}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6faa0860f629f9348b674ae59a6e4051, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Anim: {fileID: 0}
-  m_Rigid: {fileID: 0}
-  m_Red: {fileID: 0}
-  setMovementRange: 0.5
-  moveSpeed: 0.025
-  rotSpeed: 0.01
-  Stage: {fileID: 0}
-  m_ARcontroller: {fileID: 0}
-  enGuardRange: 0.2
-  attackRange: 0.1
-  b_AttackL: {fileID: 114633178726196022}
-  b_AttackR: {fileID: 114638701318768142}
-  b_Defend: {fileID: 114884644570080468}
-  Health: 0
-  MaxHealth: 100
-  RegenAmt: 10
-  hit: 0
-  dead: 0
-  HitCount: 0
-  m_HealthUI: {fileID: 114904081662580510}
-  m_ScoreUI: {fileID: 0}
-  currentState: 0
 --- !u!114 &114884644570080468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1886,7 +1828,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114798251302160808}
+      - m_Target: {fileID: 114369995004154782}
         m_MethodName: B_Defend_1
         m_Mode: 1
         m_Arguments:
@@ -1980,8 +1922,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.15
-  m_Height: 0.6
+  m_Radius: 0.25
+  m_Height: 0.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!137 &137376144663084606
@@ -2053,27 +1995,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.009454861, y: -0.07023716, z: 0.047797285}
     m_Extent: {x: 0.25166172, y: 0.3703118, z: 0.22441393}
   m_DirtyAABB: 0
---- !u!195 &195665027391181422
-NavMeshAgent:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1211882413471314}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 0.1
-  m_Acceleration: 0.3
-  avoidancePriority: 50
-  m_AngularSpeed: 60
-  m_StoppingDistance: 0.03
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!222 &222007378582002982
 CanvasRenderer:
   m_ObjectHideFlags: 1

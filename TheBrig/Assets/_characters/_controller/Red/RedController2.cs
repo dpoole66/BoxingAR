@@ -48,7 +48,7 @@ public class RedController2
     // Standard updates
     private void Update() {
 
-        if (speed < 0.05f) {
+        if (speed < 0.1f) {
 
             CurrentState = RED_STATE.IDLE;
 
@@ -71,13 +71,27 @@ public class RedController2
         if (range <= attackRange) {
 
             //Switch
-            CurrentState = RED_STATE.ATTACK;
+            //CurrentState = RED_STATE.ATTACK;
+            System.Random randomizer = new System.Random();
+            int attackToChoose = randomizer.Next(2);
+
+            switch (attackToChoose){
+
+                case 0:
+                    CurrentState = RED_STATE.ATTACKL;
+                    break;
+
+                case 1:
+                    CurrentState = RED_STATE.ATTACKR;
+                    break;
+
+            }
 
         }
 
     }
 
-    public enum RED_STATE { IDLE, MOVE, ATTACK };
+    public enum RED_STATE { IDLE, MOVE, ATTACKL, ATTACKR};
     [SerializeField] RED_STATE currentState = RED_STATE.IDLE;
     public RED_STATE CurrentState {
 
@@ -97,8 +111,12 @@ public class RedController2
                     StartCoroutine(RedMove());
                     break;
 
-                case RED_STATE.ATTACK:
-                    StartCoroutine(RedAttack());
+                case RED_STATE.ATTACKL:
+                    StartCoroutine(RedAttackL());
+                    break;
+
+                case RED_STATE.ATTACKR:
+                    StartCoroutine(RedAttackR());
                     break;
 
             }
@@ -134,7 +152,7 @@ public class RedController2
             m_Anim.SetBool("AttackR", false);
             m_Anim.SetBool("Defend", false);
 
-            this.transform.position = Vector3.MoveTowards(this.transform.position, m_Blue.transform.position, moveSpeed * Time.deltaTime);
+            this.transform.position = Vector3.Lerp(this.transform.position, direction, moveSpeed * Time.deltaTime);
 
             yield return null;
 
@@ -142,7 +160,7 @@ public class RedController2
 
     }
 
-    public IEnumerator RedAttack() {
+    public IEnumerator RedAttackL() {
 
         while (true) {
             m_Anim.SetBool("Idle", false);
@@ -150,6 +168,28 @@ public class RedController2
             m_Anim.SetBool("AttackL", true);
             m_Anim.SetBool("AttackR", false);
             m_Anim.SetBool("Defend", false);
+
+            yield return new WaitForSeconds(0.7f);
+
+            //CurrentState = RED_STATE.IDLE;
+
+            yield return null;
+
+        }
+    }
+
+    public IEnumerator RedAttackR() {
+
+        while (true) {
+            m_Anim.SetBool("Idle", false);
+            m_Anim.SetBool("Move", false);
+            m_Anim.SetBool("AttackL", false);
+            m_Anim.SetBool("AttackR", true);
+            m_Anim.SetBool("Defend", false);
+
+            yield return new WaitForSeconds(0.7f);
+
+            //CurrentState = RED_STATE.IDLE;
 
             yield return null;
 

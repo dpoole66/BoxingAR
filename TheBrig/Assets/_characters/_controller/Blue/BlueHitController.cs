@@ -29,7 +29,7 @@ public class BlueHitController : MonoBehaviour {
 
             Health += RegenAmt * Time.deltaTime;
             m_HealthUI.value = Health;
-            Debug.Log(Health);
+            //Debug.Log(Health);
 
         } else if (Health > MaxHealth) {
 

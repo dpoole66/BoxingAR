@@ -363,6 +363,7 @@
     <Compile Include="Assets\_characters\_controller\Red\RedHealth.cs" />
     <Compile Include="Assets\_characters\_controller\Red\RedHitController.cs" />
     <Compile Include="Assets\_characters\_controller\Red\SimpleRedControl.cs" />
+    <Compile Include="Assets\_props\Ring\_Scripts\Ropes.cs" />
     <Compile Include="Assets\_scripts\ARController.cs" />
     <Compile Include="Assets\_scripts\ARX.cs" />
     <Compile Include="Assets\_scripts\MettleARController.cs" />

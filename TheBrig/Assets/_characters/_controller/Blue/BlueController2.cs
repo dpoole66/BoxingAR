@@ -35,9 +35,8 @@ public class BlueController2
 
         b_AttackL = GetComponentInChildren<Button>();
         b_AttackR = GetComponentInChildren<Button>();
-        b_Defend = GetComponentInChildren<Button>();
-
-        b_AttackL.onClick.AddListener(() => BlueAttackL());
+        b_Defend = GetComponentInChildren<Button>();             
+        b_AttackL.onClick.AddListener(() => B_Attack_1L());
         b_AttackL.onClick.AddListener(() => B_Attack_1R());
         b_Defend.onClick.AddListener(() => B_Defend_1());
 
@@ -49,14 +48,20 @@ public class BlueController2
     private void FixedUpdate() {
 
         speed = m_Rigid.velocity.magnitude;
-        Debug.Log(speed);
+        //Debug.Log(speed);
 
     }
 
     // Standard updates
     private void Update() {
 
-        if (speed < 0.05f) {
+        if(b_AttackL){
+
+                Debug.Log("Attack L button found");
+
+        }
+
+        if (speed < 0.05f && CurrentState == BLUE_STATE.MOVE) {
 
             CurrentState = BLUE_STATE.IDLE;
 
@@ -128,6 +133,7 @@ public class BlueController2
     public IEnumerator BlueIdle() {
 
         while (true) {
+
             m_Anim.SetBool("Idle", true);
             m_Anim.SetBool("Move", false);
             m_Anim.SetBool("AttackL", false);
@@ -147,6 +153,7 @@ public class BlueController2
     public IEnumerator BlueMove() {
 
         while (true) {
+
             m_Anim.SetBool("Idle", false);
             m_Anim.SetBool("Move", true);
             m_Anim.SetBool("AttackL", false);
@@ -162,27 +169,38 @@ public class BlueController2
     public IEnumerator BlueAttackL() {
 
         while (true) {
-            m_Anim.SetBool("Idle", false);
-            m_Anim.SetBool("Move", false);
-            m_Anim.SetBool("AttackL", true);
-            m_Anim.SetBool("AttackR", false);
-            m_Anim.SetBool("Defend", false);
 
-            yield return null;
-
-        }
-    }
-
-    public IEnumerator BlueAttackR() {
-
-        while (true) {
             m_Anim.SetBool("Idle", false);
             m_Anim.SetBool("Move", false);
             m_Anim.SetBool("AttackL", false);
             m_Anim.SetBool("AttackR", true);
             m_Anim.SetBool("Defend", false);
 
-            yield return null;
+            yield return new WaitForSeconds(0.5f);
+
+            CurrentState = BLUE_STATE.IDLE;
+
+            yield break;
+
+        }
+     
+    }
+
+    public IEnumerator BlueAttackR() {
+
+        while (true) {
+            
+            m_Anim.SetBool("Idle", false);
+            m_Anim.SetBool("Move", false);
+            m_Anim.SetBool("AttackL", true);
+            m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("Defend", false);
+
+            yield return new WaitForSeconds(0.5f);
+
+            CurrentState = BLUE_STATE.IDLE;
+
+            yield break;
 
          }
     }
@@ -190,13 +208,18 @@ public class BlueController2
     public IEnumerator BlueDefend() {
 
         while (true) {
+            //Debug.Log("Dum");
             m_Anim.SetBool("Idle", false);
             m_Anim.SetBool("Move", false);
             m_Anim.SetBool("AttackL", false);
             m_Anim.SetBool("AttackR", false);
             m_Anim.SetBool("Defend", true);
 
-            yield return null;
+            yield return new WaitForSeconds(0.5f);
+
+            CurrentState = BLUE_STATE.IDLE;
+
+            yield break;
 
         }
     }
@@ -217,24 +240,24 @@ public class BlueController2
 
     //Attack
     public void B_Attack_1L() {
-        Debug.Log("Button");
+        //Debug.Log("WEIRD");
         CurrentState = BLUE_STATE.ATTACKL;
-        return;
+        //return;
 
     }
 
     public void B_Attack_1R() {
-
+        //Debug.Log("Button Attack R");
         CurrentState = BLUE_STATE.ATTACKR;
-        return;
+        //return;
 
     }
 
     //Defend
     public void B_Defend_1() {
-
+        //Debug.Log("Button Defend");
         CurrentState = BLUE_STATE.DEFEND;
-        return;
+        //return;
 
     }
 }
