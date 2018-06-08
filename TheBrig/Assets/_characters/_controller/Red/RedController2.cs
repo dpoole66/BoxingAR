@@ -21,6 +21,11 @@ public class RedController2
     private float speed;
     private Transform Blue;
 
+    //Bool to set attacking state
+    public bool isAttacking;
+    //Bool to detect movement
+    public bool isMoving;
+
 
     private void Awake() {
 
@@ -37,30 +42,24 @@ public class RedController2
 
     }
 
-    // Rigidbody velocity update
-    private void FixedUpdate() {
-
-        speed = m_Rigid.velocity.magnitude;
-        Debug.Log(speed);
-
-    }
 
     // Standard updates
     private void Update() {
-
-        if (speed < 0.1f) {
-
-            CurrentState = RED_STATE.IDLE;
-
-        }
 
         //Rangefinding and direction
         range = Vector3.Distance(m_Blue.transform.position, this.transform.position);
         direction = m_Blue.position - this.transform.position;
         direction.y = 0.0f;
 
+        //Set Idle if distance to Blue is less than movement range and Red is not currently attacking
+        if (range <= movementRange && !isAttacking) {
+
+            CurrentState = RED_STATE.IDLE;
+
+        }
+
         //Red Move to Blue
-        if(range >= movementRange) {
+        if (range >= movementRange) {
 
             //Switch
             CurrentState = RED_STATE.MOVE;
@@ -71,27 +70,13 @@ public class RedController2
         if (range <= attackRange) {
 
             //Switch
-            //CurrentState = RED_STATE.ATTACK;
-            System.Random randomizer = new System.Random();
-            int attackToChoose = randomizer.Next(2);
-
-            switch (attackToChoose){
-
-                case 0:
-                    CurrentState = RED_STATE.ATTACKL;
-                    break;
-
-                case 1:
-                    CurrentState = RED_STATE.ATTACKR;
-                    break;
-
-            }
+            CurrentState = RED_STATE.ATTACKING;
 
         }
 
     }
 
-    public enum RED_STATE { IDLE, MOVE, ATTACKL, ATTACKR};
+    public enum RED_STATE { IDLE, MOVE,ATTACKING, ATTACKL, ATTACKR, ATTACKCOMBO};
     [SerializeField] RED_STATE currentState = RED_STATE.IDLE;
     public RED_STATE CurrentState {
 
@@ -111,12 +96,20 @@ public class RedController2
                     StartCoroutine(RedMove());
                     break;
 
+                case RED_STATE.ATTACKING:
+                    StartCoroutine(RedAttacking());
+                    break;
+
                 case RED_STATE.ATTACKL:
                     StartCoroutine(RedAttackL());
                     break;
 
                 case RED_STATE.ATTACKR:
                     StartCoroutine(RedAttackR());
+                    break;
+
+                case RED_STATE.ATTACKCOMBO:
+                    StartCoroutine(RedAttackCombo());
                     break;
 
             }
@@ -135,11 +128,11 @@ public class RedController2
             m_Anim.SetBool("Defend", false);
 
             //Rotation
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotateSpeed);
-   
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotateSpeed * Time.deltaTime);
+          
             yield return null;
 
-        }
+         }
 
     }
 
@@ -152,7 +145,10 @@ public class RedController2
             m_Anim.SetBool("AttackR", false);
             m_Anim.SetBool("Defend", false);
 
+            //Movement
             this.transform.position = Vector3.Lerp(this.transform.position, direction, moveSpeed * Time.deltaTime);
+            //Rotation
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotateSpeed * Time.deltaTime);
 
             yield return null;
 
@@ -160,18 +156,62 @@ public class RedController2
 
     }
 
+    public IEnumerator RedAttacking() {
+
+        while (true) {
+            //Debug.Log("In Attacking");
+            isAttacking = true;
+            System.Random randomizer = new System.Random();
+            int attackToChoose = randomizer.Next(3);
+
+            switch (attackToChoose) {
+
+                case 0:
+                    CurrentState = RED_STATE.ATTACKL;
+                    //Debug.Log("switch Attack L");
+                    break;
+
+                case 1:
+                    CurrentState = RED_STATE.ATTACKR;
+                    //Debug.Log("switch Attack R");
+                    break;
+
+                case 2:
+                    CurrentState = RED_STATE.ATTACKCOMBO;
+                    //Debug.Log("switch Attack R");
+                    break;
+
+            }
+
+            if(range > attackRange){
+
+                isAttacking = false;
+                CurrentState = RED_STATE.IDLE;
+
+            }
+
+            yield return null;
+
+        }
+    }
+
     public IEnumerator RedAttackL() {
 
         while (true) {
+    
+            //Rotation
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotateSpeed * Time.deltaTime);
+
             m_Anim.SetBool("Idle", false);
             m_Anim.SetBool("Move", false);
             m_Anim.SetBool("AttackL", true);
             m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("AttackCombo", false);
             m_Anim.SetBool("Defend", false);
 
-            yield return new WaitForSeconds(0.7f);
-
-            //CurrentState = RED_STATE.IDLE;
+            yield return new WaitForSeconds(0.5f);
+            //isAttacking = false;
+            CurrentState = RED_STATE.ATTACKING;
 
             yield return null;
 
@@ -181,15 +221,43 @@ public class RedController2
     public IEnumerator RedAttackR() {
 
         while (true) {
+
+            //Rotation
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotateSpeed * Time.deltaTime);
+
             m_Anim.SetBool("Idle", false);
             m_Anim.SetBool("Move", false);
             m_Anim.SetBool("AttackL", false);
             m_Anim.SetBool("AttackR", true);
+            m_Anim.SetBool("AttackCombo", false);
             m_Anim.SetBool("Defend", false);
 
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.5f);
+            //isAttacking = false;
+            CurrentState = RED_STATE.ATTACKING;
 
-            //CurrentState = RED_STATE.IDLE;
+            yield return null;
+
+        }
+    }
+
+    public IEnumerator RedAttackCombo() {
+
+        while (true) {
+
+            //Rotation
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotateSpeed * Time.deltaTime);
+
+            m_Anim.SetBool("Idle", false);
+            m_Anim.SetBool("Move", false);
+            m_Anim.SetBool("AttackL", false);
+            m_Anim.SetBool("AttackR", false);
+            m_Anim.SetBool("AttackCombo", true);
+            m_Anim.SetBool("Defend", false);
+
+            yield return new WaitForSeconds(0.5f);
+            //isAttacking = false;
+            CurrentState = RED_STATE.ATTACKING;
 
             yield return null;
 
